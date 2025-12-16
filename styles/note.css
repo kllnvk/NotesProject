@@ -1,0 +1,45 @@
+.note {
+    border-radius: 10px;
+    min-width: 368px;
+    background-color: #fff;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 171%;
+    color: #000;
+}
+
+.note_header.yellow{ 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #F3DB7D;
+  padding: 12px;
+}
+.note_header.green {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #c2f37d;
+  padding: 12px;
+}
+.note_header.blue {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #7de1f3;
+  padding: 12px;
+}
+.note_header.red {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f37d7d;
+  padding: 12px;
+}
+.note_header.purple {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #e77df3;
+  padding: 12px;
+}

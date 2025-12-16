@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes</title>
+    <link rel= "stylesheet" href="./styles/styles.css" />
+    <link rel= "stylesheet" href="./styles/note.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+           <header class="header">
+        <div class="logo">
+            <a href="#">
+                <img src="./assets/NotesLogo.svg" alt="Logo">
+            </a>
+        </div>
+        <div class="notes-count">
+            <img src="./assets/Notes.svg" alt="Notes">
+            <span class="count-text">Всего заметок:</span>
+            <span class="count-number"><strong>5</strong></span>
+        </div>
+    </header>
+    <section class="note-section">
+        <form class="note-form">
+        <div class="name-field">
+            <label  class="label-title" for="note-title">Название заметки</label>
+            <input id="note-title" type="text" required placeholder="Напишите название новой заметки..."/>
+        </div>
+        <div class="actions-block">
+            <div class="description-field">
+            <label class="label-title" for="note-description">Описание заметки</label>
+            <textarea id="note-description" required placeholder="Напишите название новой заметки..."/></textarea>
+        </div>
+        <div class="action-items">
+            <fieldset class="fieldset">
+                <legend class="label-title">Выберите цвет заметки</legend>
+                <ul class="color-list">
+                <li ><input class="color-item" type="radio" name="color" value="yellow"></li>
+                <li ><input class="color-item" type="radio" name="color" value="green"></li>
+                <li ><input class="color-item" checked type="radio" name="color" value="blue"></li>
+                <li ><input class="color-item" type="radio" name="color" value="red"></li>
+                <li ><input class="color-item" type="radio" name="color" value="purple"></li>
+                </ul>
+            </fieldset>
+            <button type="submit" class="add-button">
+                <img src="./assets/plusImg.svg">
+                <span>Добавить заметку</span>
+            </button>
+        </div>
+        </div>
+        </form>
+    </section>
+    <div class="only-favorites">
+        <input type="checkbox" id="myCheckbox" name="favorite" value="no">
+        <label for="myCheckbox">Показать только избранные</label>
+    </div>
+    <ul class="notes-list">
+    </ul>
+    <div class="messages">
+    </div>
+    </div>
+    <script src="./js/main.js"></script>
+</body>
+</html>

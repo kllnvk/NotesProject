@@ -1,0 +1,204 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  background-color: #fafafc;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0; /* Убирает стандартный отступ */
+}
+
+fieldset {
+  all: unset;
+}
+ 
+legend {
+  all: unset
+}
+
+.container {
+  max-width: 1280px;
+  min-height: 720px;
+  border: 1px solid black;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/* Стили хедера */
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 18px 64px;
+  box-shadow: 0 1px 3px 0 rgba(11, 12, 13, 0.16), 0 0 1px 0 rgba(11, 12, 13, 0.24);
+  background-color: #fff;
+}
+
+.notes-count {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;  
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  text-align: right;
+  color: #000;
+}
+
+/* Стили формы */
+.note-section {
+  padding: 0px 64px;
+}
+
+.note-form { 
+  box-shadow: 0 8px 12px 0 rgba(11, 12, 13, 0.08), 0 16px 24px 0 rgba(11, 12, 13, 0.04), 0 1px 2px 0 rgba(11, 12, 13, 0.08);
+  background: #fff;
+  padding: 24px;
+  margin-top: 24px;
+
+}
+
+.name-field, .description-field {
+  display: flex;
+  flex-direction: column;
+}
+
+#note-title {
+  max-width: 344px;
+  min-height: 34px;
+  border: 1px solid #e8e8e8;
+  border-radius: 10px;
+  padding: 6px 12px;
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 171%;
+  color: #919191;
+}
+
+#note-description {
+  max-width: 848px;
+  min-height: 84px;
+  border: 1px solid #e8e8e8;
+  border-radius: 10px;
+  padding: 6px 12px;
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 171%;
+  color: #919191;
+}
+
+.label-title {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 200%;
+  color: #919191;
+}
+
+.actions-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px
+}
+
+.description-field {
+  flex-grow: 1;
+}
+
+.add-button {
+  border: none;
+  width: 232px;
+  min-height: 36px;
+  border-radius: 10px;
+  padding: 6px 24px;
+  background-color: #457cdc;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fieldset {
+  border:none;
+}
+
+.color-list {
+  display: flex;
+  gap: 20px;
+  padding-bottom: 18px;
+  list-style: none;
+  padding-left: 0;
+}
+
+.color-item {
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+
+.color-item[value="red"] {
+  background-color: #F37D7D;
+}
+ 
+.color-item[value="green"] {
+  background-color: #C2F37D;
+}
+ 
+.color-item[value="blue"] {
+  background-color: #7DE1F3;
+}
+ 
+.color-item[value="yellow"] {
+  background-color: #F3DB7D;
+}
+ 
+.color-item[value="purple"] {
+  background-color: #E77DF3;
+}
+
+.color-item:checked {
+  box-shadow: 0 0 0 3px white,
+  0 0 0 4.5px #007BFF; 
+}
+
+/* Стили чекбокса */
+.only-favorites {
+  display: none;
+  justify-content: flex-end;
+  padding-top: 24px;
+  padding-bottom: 12px;
+  padding-right: 64px;
+}
+
+/* Стили заметок */
+.notes-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap:24px;
+}
+
+.empty-message {
+  padding-top: 138px;
+  padding-bottom: 222px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  text-align: center;
+  color: #000;
+}
