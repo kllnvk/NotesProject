@@ -8,6 +8,11 @@
     color: #000;
 }
 
+.note_header {
+  border-radius: 10px 10px 0 0;
+}
+
+
 .note_header.yellow{ 
   display: flex;
   justify-content: space-between;
@@ -41,5 +46,13 @@
   justify-content: space-between;
   align-items: center;
   background-color: #e77df3;
+  padding: 12px;
+}
+
+.note_text {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 171%;
+  color: #000;
   padding: 12px;
 }

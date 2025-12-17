@@ -11,7 +11,7 @@ body {
 
 ul {
   list-style: none;
-  padding-left: 0; /* Убирает стандартный отступ */
+  padding-left: 0;
 }
 
 fieldset {
@@ -25,7 +25,6 @@ legend {
 .container {
   max-width: 1280px;
   min-height: 720px;
-  border: 1px solid black;
   margin-left: auto;
   margin-right: auto;
 }
@@ -129,6 +128,19 @@ legend {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
+}
+
+.note_btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.note_btn img {
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
 }
 
 .fieldset {
@@ -171,8 +183,8 @@ legend {
 }
 
 .color-item:checked {
-  box-shadow: 0 0 0 3px white,
-  0 0 0 4.5px #007BFF; 
+  box-shadow: 0 0 0 4px white,
+  0 0 0 5px #007BFF; 
 }
 
 /* Стили чекбокса */
