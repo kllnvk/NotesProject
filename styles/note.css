@@ -10,6 +10,9 @@
 
 .note_header {
   border-radius: 10px 10px 0 0;
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 
@@ -50,6 +53,8 @@
 }
 
 .note_text {
+  overflow-wrap: break-word; 
+  max-width: 300px;
   font-weight: 400;
   font-size: 14px;
   line-height: 171%;

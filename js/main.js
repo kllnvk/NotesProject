@@ -1,21 +1,26 @@
+const MESSAGES = {
+  addNote: {text: 'Заметка добавлена', isSucces: true},
+  deleteNote: {text: 'Заметка удалена', isSucces: true},
+  titleMaxLength: {text: 'Максимальная длина заголовка - 50 символов', isSucces: false},
+  descriptionMaxLength: {text: 'Максимальная длина описания - 200 символов', isSucces: false}
+}
+
 const model = {
   notes: [],
   isShowOnlyFavorite: false,
 
   toggleShowOnlyFavorite(isShowOnlyFavorite) {
     this.isShowOnlyFavorite = isShowOnlyFavorite
-    this.updateNotesView()
+    this.updateNotesView();
   },
 
   updateNotesView() {
-    let notesToRender;
-    if(this.isShowOnlyFavorite){
-      notesToRender = this.notes.filter(note => note.isFavorite)
-    } else 
-      {notesToRender = this.notes}
+    const notesToRender = this.isShowOnlyFavorite
+      ? this.notes.filter((note) => note.isFavorite)
+      : this.notes;
 
-    view.renderNotes(notesToRender);
-    view.renderNotesCount(notesToRender);
+    view.renderNotes(notesToRender)
+    view.renderNotesCount(notesToRender)
   },
 
   addNote(title, description, color) {
@@ -27,26 +32,28 @@ const model = {
       color: color,
     };
     this.notes.unshift(note);
-    this.updateNotesView();
+    this.updateNotesView()
   },
   deleteNote(noteId) {
-    this.notes = this.notes.filter((note) => note.id !== noteId);
-    this.updateNotesView();
+    this.notes = this.notes.filter((note) => note.id !== noteId)
+    this.updateNotesView()
   },
   addToFavorite(noteId) {
     this.notes = this.notes.map((note) => {
       if (note.id === noteId) {
-        note.isFavorite = !note.isFavorite;
+        note.isFavorite = !note.isFavorite
       }
-      return note;
+      return note
     });
-    this.updateNotesView();
+    this.updateNotesView()
   },
 };
 
 const view = {
+  popUpTimer: null,
+
   init() {
-    this.renderNotesCount(model.notes)
+    this.renderNotesCount(model.notes);
     this.renderNotes(model.notes);
     const form = document.querySelector(".note-form");
     const titleInput = document.querySelector("#note-title");
@@ -60,14 +67,17 @@ const view = {
       const title = titleInput.value;
       const description = textareaInput.value;
       const color = colorItem.value;
-      controller.addNote(title, description, color);
-      titleInput.value = "";
-      textareaInput.value = "";
+      const isSucces = controller.addNote(title, description, color);
+
+      if (isSucces) {
+        titleInput.value = "";
+        textareaInput.value = "";
+      }
     });
 
     notesList.addEventListener("click", (event) => {
-      const likeBtn = event.target.closest(".note_btn_like")
-      const deleteBtn = event.target.closest(".note_btn_delete")
+      const likeBtn = event.target.closest(".note_btn_like");
+      const deleteBtn = event.target.closest(".note_btn_delete");
 
       if (deleteBtn) {
         const noteId = +deleteBtn.closest("li").id;
@@ -80,11 +90,10 @@ const view = {
       }
     });
 
-    favoriteCheckbox.addEventListener("click", event => {
-        const isFavorite = favoriteCheckbox.checked;
-        controller.toggleShowOnlyFavorite(isFavorite)
-        
-    })
+    favoriteCheckbox.addEventListener("click", (event) => {
+      const isFavorite = favoriteCheckbox.checked;
+      controller.toggleShowOnlyFavorite(isFavorite);
+    });
   },
   renderNotes(notes) {
     const notesList = document.querySelector(".notes-list");
@@ -92,8 +101,8 @@ const view = {
     let notesHTML = "";
 
     if (model.notes.length === 0) {
-      notesList.innerHTML = getEmptyMessageHtml()
-        favoriteCheckboxBlock.style.display = "none";
+      notesList.innerHTML = getEmptyMessageHtml();
+      favoriteCheckboxBlock.style.display = "none";
       return;
     }
 
@@ -106,35 +115,70 @@ const view = {
     }
 
     notes.forEach((note) => {
-      notesHTML += getNoteHtml(note)
+      notesHTML += getNoteHtml(note);
     });
 
     notesList.innerHTML = notesHTML;
   },
-  renderNotesCount(notes){
+  renderNotesCount(notes) {
     const countText = document.querySelector(".count-text");
     const countNumber = document.querySelector(".count-number strong");
-    countText.textContent = model.isShowOnlyFavorite ? 'Избранных заметок:' : 'Всего заметок:'
+    countText.textContent = model.isShowOnlyFavorite
+      ? "Избранных заметок:"
+      : "Всего заметок:";
     countNumber.textContent = notes.length;
+  },
+
+  showPopUpMessage(messageObj) {
+    const messageBox = document.querySelector(".messages-box")
+    const messageHtml = getPopUpMessage(messageObj)
+
+    messageBox.style.display = 'flex'
+
+    
+    messageBox.innerHTML += messageHtml;
+
+    setTimeout(() => {
+      messageBox.firstElementChild.remove()
+      if(messageBox.children.length === 0){
+        messageBox.style.display = 'none'
+      }
+    }, 3000)
+    
   },
 };
 
 const controller = {
-    addNote(title, description, color){
-        if(title.trim() !=='' && description.trim() !== '' && color){
-            model.addNote(title, description, color)
-        }
-    },
-    deleteNote(noteId){
-        model.deleteNote(noteId)
-    },
-    addToFavorite(noteId){
-        model.addToFavorite(noteId)
-    },
-    toggleShowOnlyFavorite(isFavorite){
-      model.toggleShowOnlyFavorite(isFavorite);
-    },
-}
+  addNote(title, description, color) {
+    if (!title.trim() || !description.trim() || !color)
+      {
+        return false;
+      }
+
+    if (title.length > 50) {
+      view.showPopUpMessage(MESSAGES.titleMaxLength);
+      return false
+    }
+
+    if (description.length > 200) {
+      view.showPopUpMessage(MESSAGES.descriptionMaxLength);
+      return false
+    }
+    model.addNote(title, description, color);
+    view.showPopUpMessage(MESSAGES.addNote);
+    return true
+  },
+  deleteNote(noteId) {
+    view.showPopUpMessage(MESSAGES.deleteNote);
+    model.deleteNote(noteId);
+  },
+  addToFavorite(noteId) {
+    model.addToFavorite(noteId);
+  },
+  toggleShowOnlyFavorite(isFavorite) {
+    model.toggleShowOnlyFavorite(isFavorite);
+  },
+};
 
 view.init();
 
@@ -174,4 +218,13 @@ function getEmptyMessageWithFavoriteHtml(){
         Нет избранных заметок
       </p>
         `;
+}
+
+function getPopUpMessage(messageObj) {
+  return `
+  <div class="popup-message ${messageObj.isSucces ? "success" : "error"}">
+  <img class= "popup-icon" src="./assets/${messageObj.isSucces ? "Done.svg" : "warningwh.svg"}" alt="pop-icon">
+  <p>${messageObj.text}</p>
+  </div>
+  `
 }

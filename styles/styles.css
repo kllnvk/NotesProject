@@ -5,6 +5,8 @@
 }
 
 body {
+  overflow-x: hidden;
+  min-width: 350px;
   font-family: "Montserrat", sans-serif;
   background-color: #fafafc;
 }
@@ -164,22 +166,27 @@ legend {
 
 .color-item[value="red"] {
   background-color: #F37D7D;
+  cursor: pointer;
 }
  
 .color-item[value="green"] {
   background-color: #C2F37D;
+  cursor: pointer;
 }
  
 .color-item[value="blue"] {
   background-color: #7DE1F3;
+  cursor: pointer;
 }
  
 .color-item[value="yellow"] {
   background-color: #F3DB7D;
+  cursor: pointer;
 }
  
 .color-item[value="purple"] {
   background-color: #E77DF3;
+  cursor: pointer;
 }
 
 .color-item:checked {
@@ -201,7 +208,7 @@ legend {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   gap:24px;
 }
 
@@ -213,4 +220,79 @@ legend {
   line-height: 150%;
   text-align: center;
   color: #000;
+}
+
+.messages-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: fixed;
+  right: 20px;
+  bottom: 60px;
+  z-index: 9999;}
+
+.popup-message {
+  color: #fff;
+  border-radius: 10px;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  max-width: max-content;
+  height: 48px;
+  gap: 10px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 171%;
+  color: #fff;
+}
+
+.popup-message.success {
+  box-shadow: 0 8px 12px 0 rgba(11, 12, 13, 0.08), 0 16px 24px 0 rgba(11, 12, 13, 0.04), 0 1px 2px 0 rgba(11, 12, 13, 0.08);
+  background-color: #47b27d;
+}
+
+.popup-message.error {
+  box-shadow: 0 8px 12px 0 rgba(11, 12, 13, 0.08), 0 16px 24px 0 rgba(11, 12, 13, 0.04), 0 1px 2px 0 rgba(11, 12, 13, 0.08);
+  background-color: #f23d5b;
+}
+
+.messages-box > div {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 620px) {
+  .note-form {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .actions-block {
+    flex-direction: column;
+  }
+  .fieldset {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media (max-width: 430px){
+  .count-text {
+    display: none;
+  }
+
+    .add-button {
+    min-width: 175px;
+  }
+}
+
+@media (max-width: 375px){
+    .add-button {
+    width: 150px;
+  }
 }
