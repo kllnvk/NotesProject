@@ -162,7 +162,7 @@ const controller = {
     view.renderNotesCount(notesToRender);
   },
   addNote(title, description, color) {
-    if (!title.trim() || !description.trim() || !color)
+    if (!title.trim() || !description.trim() || !color.trim())
       {
         return false;
       }
