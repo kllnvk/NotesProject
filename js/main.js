@@ -5,22 +5,26 @@ const MESSAGES = {
   descriptionMaxLength: {text: 'Максимальная длина описания - 200 символов', isSucces: false}
 }
 
+const STORAGE_KEY = "notes"
+
 const model = {
   notes: [],
   isShowOnlyFavorite: false,
 
   toggleShowOnlyFavorite(isShowOnlyFavorite) {
     this.isShowOnlyFavorite = isShowOnlyFavorite
-    this.updateNotesView();
+    controller.updateUI()
   },
 
-  updateNotesView() {
-    const notesToRender = this.isShowOnlyFavorite
-      ? this.notes.filter((note) => note.isFavorite)
-      : this.notes;
+  saveTolocalStorage(){
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(this.notes))
+  },
 
-    view.renderNotes(notesToRender)
-    view.renderNotesCount(notesToRender)
+  loadFromStorage(){
+    const data = localStorage.getItem(STORAGE_KEY)
+    if(data) {
+      this.notes = JSON.parse(data)
+    }
   },
 
   addNote(title, description, color) {
@@ -31,12 +35,14 @@ const model = {
       isFavorite: false,
       color: color,
     };
-    this.notes.unshift(note);
-    this.updateNotesView()
+    this.notes.unshift(note)
+    this.saveTolocalStorage()
+    controller.updateUI()
   },
   deleteNote(noteId) {
     this.notes = this.notes.filter((note) => note.id !== noteId)
-    this.updateNotesView()
+    this.saveTolocalStorage()
+    controller.updateUI()
   },
   addToFavorite(noteId) {
     this.notes = this.notes.map((note) => {
@@ -45,16 +51,15 @@ const model = {
       }
       return note
     });
-    this.updateNotesView()
+    this.saveTolocalStorage()
+    controller.updateUI()
   },
 };
 
 const view = {
-  popUpTimer: null,
-
   init() {
-    this.renderNotesCount(model.notes);
-    this.renderNotes(model.notes);
+    model.loadFromStorage()
+    controller.updateUI()
     const form = document.querySelector(".note-form");
     const titleInput = document.querySelector("#note-title");
     const textareaInput = document.querySelector("#note-description");
@@ -110,7 +115,6 @@ const view = {
 
     if (notes.length === 0) {
       notesList.innerHTML = getEmptyMessageWithFavoriteHtml();
-
       return;
     }
 
@@ -149,6 +153,14 @@ const view = {
 };
 
 const controller = {
+    updateUI() {
+    const notesToRender = model.isShowOnlyFavorite
+      ? model.notes.filter((note) => note.isFavorite)
+      : model.notes;
+
+    view.renderNotes(notesToRender);
+    view.renderNotesCount(notesToRender);
+  },
   addNote(title, description, color) {
     if (!title.trim() || !description.trim() || !color)
       {
